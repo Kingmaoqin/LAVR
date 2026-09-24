@@ -1,0 +1,13 @@
+# Path-LL studies (MDLM / SEDD)
+torch>=2.7.0
+transformers==4.53.2
+numpy
+scipy
+scikit-learn
+huggingface_hub
+pyarrow
+pandas
+einops
+matplotlib
+statsmodels
+# Nemotron task studies need a separate environment with transformers>=5.0.0

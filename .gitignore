@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+data/
+results/
+logs/
+analysis/results/
+analysis/sealed_taskD_primary/
+*.npz
+*.npy
+*.pt
+*.safetensors
+.ipynb_checkpoints/

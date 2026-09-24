@@ -1,0 +1,39 @@
+{
+  "backbones": {
+    "MDLM": {"hf_id": "kuleshov-group/mdlm-owt", "params": "169.6M"},
+    "SEDD": {"hf_id": "louaaron/sedd-small", "graph": "absorbing", "params": "169.6M"},
+    "Nemotron": {"hf_id": "nvidia/Nemotron-Labs-Diffusion-3B",
+                 "revision": "0d51902da1f8869f83413ce642fab402fa5641e0"}
+  },
+  "path_ll": {
+    "corpus": "stas/openwebtext-10k, documents shuffled with seed 0, one 256-token window per qualifying document, first 64 tokens observed",
+    "decoding": {"gen_region": 192, "commits_per_step": 1, "top_k": 50, "temperature": 1.0,
+                  "record_fracs": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6], "n_cand": 6, "n_cand_conf": 3,
+                  "horizon": 16, "K": 24},
+    "original_study": {
+      "MDLM_ancestral":  {"tags": ["a3", "b3"], "offsets": [0, 200], "n_docs": 400, "order": "ancestral"},
+      "MDLM_confidence": {"tags": ["c3", "d3"], "offsets": [0, 200], "n_docs": 400, "order": "confidence", "order_temp": 2.0},
+      "SEDD_ancestral":  {"tags": ["s1", "s2"], "offsets": [0, 200], "n_docs": 400, "order": "ancestral", "backbone": "sedd"}
+    },
+    "horizon_arms": {"H8": {"tags": ["h8a", "h8b"], "horizon": 8, "K": 16},
+                     "H32": {"tags": ["h32a", "h32b"], "horizon": 32, "K": 16}},
+    "replication_A": {"tag": "freshA", "offset": 400, "note": "fresh documents disjoint from the original study (offset >= 400), analysed under the frozen protocol"},
+    "study_B": {"K": 64, "n_docs": 400, "note": "independent ranking study on another 400 documents"}
+  },
+  "state_value": {
+    "dataset": "GSM8K test (openai/gsm8k main)", "prompts": "indices 0-799",
+    "tags": {"vreadA": {"offset": 0, "n": 400}, "vreadB": {"offset": 400, "n": 400}},
+    "decoding": {"gen_len": 160, "block": 32, "confidence_threshold": 0.9, "top_k": 50, "temperature": 0.2,
+                  "record_fracs": [0.10, 0.25, 0.40, 0.55, 0.70, 0.85], "K": 8},
+    "split_prompts": {"train": 480, "val": 120, "test": 200}
+  },
+  "task_action": {
+    "reward": "final extracted number matches gold (abs error < 1e-6)",
+    "instruction_suffix": "\n\nEnd your reply with the final numeric answer alone on the last line.",
+    "record_fracs": [0.15, 0.35, 0.55, 0.75], "K": 8, "n_cand": 6,
+    "GSM8K_C": {"tag": "taskC", "offset": 440, "n_screen": 260, "n_prompts": 180},
+    "GSM8K_D": {"tag": "taskD", "offset": 700, "n_screen": 600, "n_prompts": 570, "mixed_frac": 0.7},
+    "SVAMP_E": {"tag": "taskE_svamp", "offset": 0, "n_screen": 300, "n_prompts": 200, "mixed_frac": 0.7}
+  },
+  "feature_projection_seed": 20260819
+}
